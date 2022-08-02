@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     private int comboScore;
 
     public int Money=0;
-    public int MoneySum=0;
     private int Diamond;
 
     public Player player;
@@ -40,7 +39,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        FindObjectOfType<Player>().onDeath += GameOver;        
+        FindObjectOfType<Player>().onDeath += GameOver;
+        UpdateMoneySum();
     }
 
     // Update is called once per frame
@@ -78,8 +78,8 @@ public class GameManager : MonoBehaviour
     public void UpdateMoneySum()
     {
         Money = finalScore * player.clearBrokeObstacle;
-        MoneySum += Money;
-        UIManager.instance.UpdateMoneySumText(MoneySum);
+        DataManager.instanceData.moneySum += Money;
+        UIManager.instance.UpdateMoneySumText(DataManager.instanceData.moneySum);
     }
     public void UpdateFinalScore()
     {
