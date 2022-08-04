@@ -9,8 +9,9 @@ public class DataManager : MonoBehaviour
 
     public static DataManager instanceData;
     public List<int> AcquiredNumList;
-    public int curHatIndex;
+    public int curHatIndex = -1;
     public int moneySum;
+    public int priceData = 0;
     private void Awake()
     {
         if (instanceData != null)
@@ -22,9 +23,6 @@ public class DataManager : MonoBehaviour
             instanceData = this;
 
             DontDestroyOnLoad(gameObject);
-        }
-        
+        }        
     }
-
-
 }

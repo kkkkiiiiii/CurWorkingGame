@@ -3,7 +3,12 @@ guid: b8df8a6bc2aebd146ac194bb5854b70b
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LEGO HEAD
+    second: {fileID: 2100010, guid: 5305292c59f81a6428adfede9d323651, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

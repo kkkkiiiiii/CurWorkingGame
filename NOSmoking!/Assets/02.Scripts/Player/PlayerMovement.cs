@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float limitX = 2.8f;
+    private float limitX = 5f;
     public float xSpeed = 5f;
-    public float runningSpeed = 2f;
+    public float runningSpeed = 5f;
     public float animationSpeed;
 
     private Player player;

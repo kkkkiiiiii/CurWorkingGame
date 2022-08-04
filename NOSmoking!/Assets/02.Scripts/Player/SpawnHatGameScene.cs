@@ -14,7 +14,14 @@ public class SpawnHatGameScene : MonoBehaviour
     {
         int tempIndex = DataManager.instanceData.curHatIndex;
         Debug.Log(tempIndex);
-        objCurrentHat = Instantiate(HatsPrefab[tempIndex], SpawnPos);
+        if (tempIndex != -1)
+            objCurrentHat = Instantiate(HatsPrefab[tempIndex], SpawnPos);
+        else if (tempIndex == -1)
+        {
+            Debug.Log(objCurrentHat == null);
+            Destroy(objCurrentHat);
+        }
+            
     }
 
     public void SpawnHatInGame(int HatIndex)

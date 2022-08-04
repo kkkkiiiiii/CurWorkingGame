@@ -8,57 +8,52 @@ public class BagScale : MonoBehaviour
     private float YBigScale = 0.1f;
     private float ZBigScale = 0.1f;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-        
     public void GetSizeValue(int buttsNum)
     {
         Debug.Log("Size");
         switch (buttsNum)
         {
-            case 4:
+            case 3:
                 XBigScale = 0.2f;
                 YBigScale = 0.1f;
                 ZBigScale = 0.1f;
                 break;
-            case 8:
+            case 6:
                 XBigScale = 0.2f;
                 YBigScale = 0.2f;
                 ZBigScale = 0.1f;
                 break ;
-            case 12:
+            case 9:
                 XBigScale = 0.2f;
                 YBigScale = 0.2f;
                 ZBigScale = 0.2f;
                 break;
-            case 16:
+            case 12:
                 XBigScale = 0.3f;
                 YBigScale = 0.2f;
                 ZBigScale = 0.2f;
                 break;
-            case 20:
+            case 15:
                 XBigScale = 0.3f;
                 YBigScale = 0.3f;
                 ZBigScale = 0.2f;
                 break;
-            case 24:
+            case 18:
                 XBigScale = 0.3f;
                 YBigScale = 0.3f;
                 ZBigScale = 0.3f;
                 break;
-            case 28:
+            case 21:
                 XBigScale = 0.4f;
                 YBigScale = 0.3f;
                 ZBigScale = 0.3f;
                 break;
-            case 32:
+            case 24:
                 XBigScale = 0.4f;
                 YBigScale = 0.4f;
                 ZBigScale = 0.3f;
                 break;
-            case 36:
+            case 27:
                 XBigScale = 0.4f;
                 YBigScale = 0.4f;
                 ZBigScale = 0.4f;

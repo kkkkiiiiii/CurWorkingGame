@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.IO;
+using Newtonsoft.Json;
 public class GameManager : MonoBehaviour
 {
     
@@ -79,6 +80,8 @@ public class GameManager : MonoBehaviour
     {
         Money = finalScore * player.clearBrokeObstacle;
         DataManager.instanceData.moneySum += Money;
+        string cashJdata = JsonConvert.SerializeObject(DataManager.instanceData.moneySum);
+        File.WriteAllText(Application.dataPath + "/Resources/CashDataText.txt", cashJdata);
         UIManager.instance.UpdateMoneySumText(DataManager.instanceData.moneySum);
     }
     public void UpdateFinalScore()

@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
+using Newtonsoft.Json;
 
 public class Player : MonoBehaviour
 {
@@ -38,9 +39,13 @@ public class Player : MonoBehaviour
 
 
     // ScoroeZone scoreZone;
-    
-    void Start()
+    private void Awake()
     {
+        string cashJdata = File.ReadAllText(Application.dataPath + "/Resources/CashDataText.txt");
+        DataManager.instanceData.moneySum = JsonConvert.DeserializeObject<int>(cashJdata);
+    }
+    void Start()
+    {        
         dead = true;
         smokers = new List<Smoker>();
         cigaretteButts = new List<cigaretteButt>();
@@ -148,7 +153,7 @@ public class Player : MonoBehaviour
                     attachable.OnAttach(gameObject);
                     playerAudioPlayer.PlayOneShot(smokerPickUpClip);
 
-                    playerMovement.runningSpeed += 0.2f;
+                    playerMovement.runningSpeed += 0.5f;
                     playerMovement.animationSpeed += 0.02f;
 
                     smokers.Add(collision.gameObject.GetComponent<Smoker>());
@@ -162,7 +167,7 @@ public class Player : MonoBehaviour
                 {
                     attachable.OnAttach(gameObject);
                     playerAudioPlayer.PlayOneShot(itemPickUpClip);
-                    playerMovement.runningSpeed += 0.2f;
+                    playerMovement.runningSpeed += 0.5f;
                     playerMovement.animationSpeed += 0.02f;
                     playerAnimator.SetTrigger("PickUpItem");
 
@@ -292,7 +297,6 @@ public class Player : MonoBehaviour
         
         GameManager.instance.UpdateFinalScore();
         GameManager.instance.StageClear();
-
         GameManager.instance.UpdateMoneySum();
     }
 }    

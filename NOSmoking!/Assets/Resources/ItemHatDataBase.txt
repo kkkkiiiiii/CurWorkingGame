@@ -11,3 +11,8 @@
 10	VikingHelmet	바이킹헬멧	FALSE	FALSE
 11	luppyHat	루피 모자	FALSE	FALSE
 12	PatrickHat	패트릭 모자	FALSE	FALSE
+13	WitchHat	마녀 모자	FALSE	FALSE
+14	FiremanHat	소방관 모자	FALSE	FALSE
+15	DogEarHat	개귀모자	FALSE	FALSE
+16	LegoHead	레고머리	FALSE	FALSE
+17	Sombrero	솜베로모자	FALSE	FALSE

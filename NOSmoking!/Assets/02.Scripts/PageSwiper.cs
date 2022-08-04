@@ -24,12 +24,12 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
         if (Mathf.Abs(percentage)>=percentThreshold)
         {
             Vector3 newLocation = panelLocation;
-            if (percentage>0)
+            if (percentage>0 && PanelIndex == 0)
             {
                 newLocation += new Vector3(-Screen.width, 0, 0);
                 PanelIndex += 1;
                 Debug.Log("PanelIndex" + PanelIndex);
-            }else if (percentage < 0)
+            }else if (percentage < 0 && PanelIndex == 1)
             {
                 newLocation+= new Vector3(Screen.width, 0, 0);
                 PanelIndex -= 1;

@@ -14,7 +14,7 @@ public class PoliceMan : MonoBehaviour
     public ParticleSystem catchSmokerParticle;
 
     public float chasingSpeed = 1f;
-    private float Duration = 5f;
+    private float Duration = 3f;
     private float elapsedTime;
     public bool isChasing= false;
 

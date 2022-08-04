@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
         SetActiveMainUI(true);
         SetActiveGameoverUI(false);
         SetActiveGameClearUI(false);
+        UpdateMoneySumText(DataManager.instanceData.moneySum);
     }
     private void Update()
     {
