@@ -172,7 +172,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6630686452154736490}
   - component: {fileID: 3169935228340439471}
-  - component: {fileID: 3169935228340439470}
   - component: {fileID: 3169935228340439457}
   - component: {fileID: -2653725860611426899}
   m_Layer: 6
@@ -213,19 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cigaretteParticle: {fileID: 8664341457265614246, guid: ca5456c9e7b06a94c87187fc747b70cb, type: 3}
---- !u!114 &3169935228340439470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3872252292719687847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c488c4c084953a499d41fc7dc3fab6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 60
 --- !u!135 &3169935228340439457
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -234,7 +220,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3872252292719687847}
   m_Material: {fileID: 13400000, guid: 95cd274863a75fa48960d83ef9008f06, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.30044824
