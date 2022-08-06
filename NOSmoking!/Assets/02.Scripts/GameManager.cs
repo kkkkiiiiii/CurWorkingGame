@@ -6,7 +6,10 @@ using System.IO;
 using Newtonsoft.Json;
 public class GameManager : MonoBehaviour
 {
-    
+    public GameObject[] mapBGPrefab;
+    public GameObject[] stageBGPrefab;
+    private GameObject stagePB;
+    private GameObject mapPB;
     public bool isGameOver { get; private set; }
     private static GameManager m_instance;
     public static GameManager instance
@@ -27,7 +30,7 @@ public class GameManager : MonoBehaviour
     private int stageScore;
     private int comboScore;
 
-    public int Money=0;
+    public int getMoney=0;
     private int Diamond;
 
     public Player player;
@@ -36,12 +39,18 @@ public class GameManager : MonoBehaviour
         // 씬에 싱글톤 오브젝트가 된 다른 GameManager 오브젝트가 있다면 자신을 파괴
         if(instance != this)
             Destroy(gameObject);
-        isGameOver = true;                
+        isGameOver = true;
+
+        
     }
     void Start()
     {
         FindObjectOfType<Player>().onDeath += GameOver;
         UpdateMoneySum();
+        UIManager.instance.UpdateStageNum();
+
+        stagePB = Instantiate(stageBGPrefab[DataManager.instanceData.curStage]);
+        mapPB = Instantiate(mapBGPrefab[Random.Range(0, 5)]);
     }
 
     // Update is called once per frame
@@ -72,17 +81,19 @@ public class GameManager : MonoBehaviour
                 comboScore = 0;
             //Debug.Log($"GameManager : " + comboScore);
             // 콤보 점수 UI 텍스트 갱신
-            UIManager.instance.UpdateComboScoreText(comboScore);
-            
+            UIManager.instance.UpdateComboScoreText(comboScore);            
         }
     }    
     public void UpdateMoneySum()
-    {
-        Money = finalScore * player.clearBrokeObstacle;
-        DataManager.instanceData.moneySum += Money;
-        string cashJdata = JsonConvert.SerializeObject(DataManager.instanceData.moneySum);
-        File.WriteAllText(Application.dataPath + "/Resources/CashDataText.txt", cashJdata);
+    {        
+        getMoney = finalScore * player.clearBrokeObstacle;
+        DataManager.instanceData.moneySum += getMoney;
+
         UIManager.instance.UpdateMoneySumText(DataManager.instanceData.moneySum);
+
+        string Cashdata = JsonConvert.SerializeObject(DataManager.instanceData.moneySum);
+        File.WriteAllText(Application.dataPath + "/Resources/CashDataText.txt", Cashdata);
+
     }
     public void UpdateFinalScore()
     {
@@ -93,11 +104,9 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         UIManager.instance.SetActiveGameClearUI(true);
-
     }
     public void StartGame()
     {
-
         player.StartRevive();
         isGameOver = false;
         UIManager.instance.SetActiveMainUI(false);        
@@ -122,6 +131,23 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetActiveGameClearUI(false);
         UIManager.instance.SetActiveGameoverUI(false);
         player.Idle();
-    }
 
+        UIManager.instance.UpdateStageNum();
+        SpawnMapBG();
+    }
+    private void SpawnMapBG()
+    {
+        if (stagePB != null)
+        {
+            Destroy(stagePB);
+            stagePB = Instantiate(stageBGPrefab[DataManager.instanceData.curStage]);
+        }
+            
+        if (mapPB != null)
+        {
+            Destroy(mapPB);
+            mapPB = Instantiate(mapBGPrefab[Random.Range(0, 5)]);
+        }
+        
+    }
 }

@@ -31,13 +31,10 @@ public class ShopManager : MonoBehaviour
     public Button removingButton;
     private int Price = 0;
 
-
     private AudioSource ShopAudio;
     public AudioClip clickClip;
     public TextAsset ItemDatabase;
-    public TextAsset CashDatabase;
     public List<Item> AllItemList, MyItemList, isntAcquiredList;
-    public int Cash;
     public GameObject[] UsingImage;
     public Image[] TabImage, ItemImage;
     public Material TabIdleMaterial, TabSelectMaterial;
@@ -57,7 +54,6 @@ public class ShopManager : MonoBehaviour
             AllItemList.Add(new Item(row[0], row[1], row[2], row[3] == "TRUE", row[4] == "TRUE"));
         }
         Load();
-        Cash = DataManager.instanceData.moneySum;
         DataManager.instanceData.AcquiredNumList.Sort();
         for (int i = 0; i < MyItemList.Count; i++)
         {
@@ -70,8 +66,7 @@ public class ShopManager : MonoBehaviour
             for (int j = 0; j < DataManager.instanceData.AcquiredNumList.Count; j++)
             {
                 if(DataManager.instanceData.AcquiredNumList[j] == i)
-                    UsingImage[i].SetActive(false);
-                
+                    UsingImage[i].SetActive(false);                
             }
         }
         /*
@@ -91,18 +86,14 @@ public class ShopManager : MonoBehaviour
     void Save()
     {
         string jdata = JsonConvert.SerializeObject(MyItemList);
-        string cashJdata = JsonConvert.SerializeObject(Cash);
+        DataManager.instanceData.Save();
         File.WriteAllText(Application.dataPath + "/Resources/MyItemText.txt", jdata);
-        File.WriteAllText(Application.dataPath + "/Resources/CashDataText.txt", cashJdata);
         TabClick(curSelectedNum);
     }
     void Load()
     {
         string jdata = File.ReadAllText(Application.dataPath + "/Resources/MyItemText.txt");
-        //string cashJdata = File.ReadAllText(Application.dataPath + "/Resources/CashDataText.txt");
         MyItemList = JsonConvert.DeserializeObject<List<Item>>(jdata);
-        //Cash = JsonConvert.DeserializeObject<int>(cashJdata);
-        //DataManager.instanceData.moneySum = Cash;
         TabClick(curSelectedNum);
     }
 
@@ -165,7 +156,6 @@ public class ShopManager : MonoBehaviour
             DataManager.instanceData.AcquiredNumList.Add(BuyNum);
             ShopAudio.PlayOneShot(clickClip);
 
-            Cash -= DataManager.instanceData.priceData;
             DataManager.instanceData.moneySum -= DataManager.instanceData.priceData;
             DataManager.instanceData.priceData += 500; // DataManager의 살 수 있는 가격을 저장
         }
@@ -197,13 +187,6 @@ public class ShopManager : MonoBehaviour
         ShopAudio.PlayOneShot(clickClip);
         Save();
     }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
     public void PlayBtn()
     {
         ShopAudio.PlayOneShot(clickClip);

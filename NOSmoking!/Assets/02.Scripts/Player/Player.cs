@@ -36,14 +36,9 @@ public class Player : MonoBehaviour
     public List<Smoker> smokers;
     public List<cigaretteButt> cigaretteButts;
     public List<Obstacle> obstacles;
-
-
+    public List<GameObject> exsitingPoliceMan;
     // ScoroeZone scoreZone;
-    private void Awake()
-    {
-        string cashJdata = File.ReadAllText(Application.dataPath + "/Resources/CashDataText.txt");
-        DataManager.instanceData.moneySum = JsonConvert.DeserializeObject<int>(cashJdata);
-    }
+
     void Start()
     {        
         dead = true;
@@ -298,5 +293,7 @@ public class Player : MonoBehaviour
         GameManager.instance.UpdateFinalScore();
         GameManager.instance.StageClear();
         GameManager.instance.UpdateMoneySum();
+
+        DataManager.instanceData.curStage += 1;
     }
 }    

@@ -185,7 +185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2439329887501983746}
-  m_LocalRotation: {x: -0, y: 0.96488905, z: -0, w: -0.26265782}
+  m_LocalRotation: {x: 0, y: 0.9648883, z: -0, w: -0.26266065}
   m_LocalPosition: {x: -1.803114, y: -2.69, z: 114.2}
   m_LocalScale: {x: 0.30000004, y: 0.3, z: 0.30000004}
   m_Children:
@@ -392,6 +392,7 @@ MonoBehaviour:
   - {fileID: 6426875597738054512, guid: 4aeae3d77a5dd4242ad29dd481d71a31, type: 3}
   - {fileID: 5182909571798343734, guid: 736abe53d71c3ec4e8dce915e820967d, type: 3}
   policeMen: []
+  player: {fileID: 7481609416539907531, guid: 45ccffef526936a49a0df48f19009d1c, type: 3}
 --- !u!1 &5344846160801891785
 GameObject:
   m_ObjectHideFlags: 0

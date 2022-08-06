@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
 
     private float Duration = 3f;
     private float elapsedTime;
-    private bool isCleared=false;
+    private bool isCleared;
     private void OnEnable()
     {        
         // 콤보 슬라이더 활성화
@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     
     private void Start()
     {
+        isCleared = false;
         SetActiveMainUI(true);
         SetActiveGameoverUI(false);
         SetActiveGameClearUI(false);
@@ -54,10 +55,17 @@ public class UIManager : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float percentageComplete =elapsedTime / Duration;
-            float reward = Mathf.Lerp(1f, GameManager.instance.Money, (Mathf.SmoothStep(0,1,percentageComplete)));
+            float reward = Mathf.Lerp(1f, GameManager.instance.getMoney, (Mathf.SmoothStep(0,1,percentageComplete)));
             clearRewardTMP.text = reward.ToString("000");
+            Debug.Log("SmoothStep");
         }
     }
+    // 스테이지 갱신
+    public void UpdateStageNum()
+    {
+        stageNumTMP.text = "Stage : " + DataManager.instanceData.curStage;
+    }
+
     // 스테이지 점수 갱신
     public void UpdateStageScoreText(int stageScore)
     {
@@ -72,13 +80,11 @@ public class UIManager : MonoBehaviour
     public void UpdateFinalScoreText(int stageScore, int comboScore)
     {        
         finalScoreTMP.text = (stageScore + comboScore).ToString();
+        isCleared = true;
     }
     public void UpdateMoneySumText(int MoneySum)
     {
-        MoneyTMP.text = MoneySum.ToString();
-        
-        isCleared = true;
-        //clearRewardTMP.text = Mathf.Lerp(1, Money, Mathf.SmoothStep(0, 1, percentageComplete)).ToString();
+        MoneyTMP.text = MoneySum.ToString();        
     }    
     // UI 활성화
     public void SetActiveGameoverUI(bool active)
@@ -88,6 +94,8 @@ public class UIManager : MonoBehaviour
     public void SetActiveMainUI(bool active)
     {
         mainUI.SetActive(active);
+
+        isCleared = false;
     }
     public void SetActiveGameClearUI(bool active)
     {
