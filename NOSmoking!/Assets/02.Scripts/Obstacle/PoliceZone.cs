@@ -16,28 +16,18 @@ public class PoliceZone : MonoBehaviour
     public GameObject[] policePrefab;
 
     public List<PoliceMan> policeMen;
-    public Player player;
     private void Start()
     {
 
         if (policeNum>0)
         {
-            Debug.Log("CreatePolice");
             CreatePoliceMan();
         }
     }
 
     private void CreatePoliceMan()
     {
-        player = GetComponent<Player>();
-        if (player == null)
-        {
-            Debug.Log("aaa");
-        }
-        if (player != null)
-        {
-            Debug.Log("yoyoyo");
-        }
+
         for (int i = 0; i < policeNum; i++)
         {
             int index = Random.Range(0, 2);
@@ -46,7 +36,7 @@ public class PoliceZone : MonoBehaviour
             position = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
             GameObject policemanGameObject = Instantiate(policePrefab[index], position, Quaternion.AngleAxis(Random.Range(140f,220f),Vector3.up));
             PoliceMan policeman = policemanGameObject.GetComponent<PoliceMan>();
-            player.exsitingPoliceMan.Add(policemanGameObject);
+            GameManager.instance.exsitingPoliceMan.Add(policemanGameObject);
             policeman.policmanAnimator.SetTrigger($"Talking{Random.Range(1, 3)}");
             if (policeman!= null)
             {
@@ -57,7 +47,6 @@ public class PoliceZone : MonoBehaviour
 
     public void TriggerAndChase(Transform smokerPosition)
     {
-        Debug.Log("TriggerAndChase");
         if (policeMen.Count == 0)
             return;        
         policeMen[0].ChaseSmoker(smokerPosition.gameObject);

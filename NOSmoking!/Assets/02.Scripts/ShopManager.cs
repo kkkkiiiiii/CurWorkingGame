@@ -1,9 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+[System.Serializable]
+public class Serialization<T>
+{
+    public Serialization(List<T> _target) => target = _target;
+    public List<T> target;       
+}
 
 [System.Serializable]
 public class Item
@@ -42,6 +48,7 @@ public class ShopManager : MonoBehaviour
 
     private int curSelectedNum=0;
 
+    string filePath;
     void Start()
     {
         ShopAudio = GetComponent<AudioSource>();
@@ -53,6 +60,7 @@ public class ShopManager : MonoBehaviour
 
             AllItemList.Add(new Item(row[0], row[1], row[2], row[3] == "TRUE", row[4] == "TRUE"));
         }
+        filePath = Application.persistentDataPath + "/MyItemText.txt";
         Load();
         DataManager.instanceData.AcquiredNumList.Sort();
         for (int i = 0; i < MyItemList.Count; i++)
@@ -84,17 +92,37 @@ public class ShopManager : MonoBehaviour
         HatsModules[currentPlayerIndex].SetActive(true);*/
     }
     void Save()
-    {
-        string jdata = JsonConvert.SerializeObject(MyItemList);
+    {        
+        string itemdata = JsonUtility.ToJson(new Serialization<Item>(MyItemList));
+
         DataManager.instanceData.Save();
-        File.WriteAllText(Application.dataPath + "/Resources/MyItemText.txt", jdata);
+        File.WriteAllText(filePath, itemdata);
         TabClick(curSelectedNum);
     }
     void Load()
     {
-        string jdata = File.ReadAllText(Application.dataPath + "/Resources/MyItemText.txt");
-        MyItemList = JsonConvert.DeserializeObject<List<Item>>(jdata);
+        if (!File.Exists(filePath))
+        {
+            Debug.Log("itemfilePath is null");
+            ResetItem();
+            return;
+        }
+        string jdata = File.ReadAllText(filePath);
+        MyItemList = JsonUtility.FromJson<Serialization<Item>>(jdata).target;
         TabClick(curSelectedNum);
+    }
+    public void ResetItem()
+    {
+        string[] line = ItemDatabase.text.Substring(0, ItemDatabase.text.Length - 1).Split('\n');
+        for (int i = 0; i < line.Length; i++)
+        {
+            string[] row = line[i].Split('\t');
+
+            MyItemList.Add(new Item(row[0], row[1], row[2], row[3] == "TRUE", row[4] == "TRUE"));
+        }
+        print(MyItemList);
+        Save();
+        Load();
     }
 
     // 탭 클릭하면 이 아이템이 선택되었는 지 material 색변경으로 시각적으로 보여주고 구매한 상품이면 Buy버튼을 지우고 착용버튼을 보여준다. 
@@ -125,9 +153,7 @@ public class ShopManager : MonoBehaviour
         {
             buyButton.gameObject.SetActive(true);
             wearingButton.gameObject.SetActive(false);
-        }
-
-        
+        }        
         ShopAudio.PlayOneShot(clickClip);
     }
     // 현재 페이지 수를 알아오고 그 페이지 안에 있는 isAcquired = false인 것 중에서 랜덤하게 하나를 획득한다.

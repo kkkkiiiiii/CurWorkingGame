@@ -34,10 +34,8 @@ public class PoliceMan : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollision");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Attachable"))
         {
-            Debug.Log("PoliceMantoSmokerCollision");
             // IAttachable 컴포넌트 가져오기 시도
             IAttachable attachable = collision.gameObject.GetComponent<IAttachable>();
 

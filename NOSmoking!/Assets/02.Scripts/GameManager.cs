@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     private int Diamond;
 
     public Player player;
+    public List<GameObject> exsitingPoliceMan;
     private void Awake()
     {
         // 씬에 싱글톤 오브젝트가 된 다른 GameManager 오브젝트가 있다면 자신을 파괴
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         UIManager.instance.SetActiveGameClearUI(true);
+        DestroyPoliceMan();
     }
     public void StartGame()
     {
@@ -119,7 +121,19 @@ public class GameManager : MonoBehaviour
 
         // 게임 오버 UI를 활성화
         UIManager.instance.SetActiveGameoverUI(true);
-
+        exsitingPoliceMan.Clear();
+        DestroyPoliceMan();
+    }
+    private void DestroyPoliceMan()
+    {
+        Debug.Log("Destroy");
+        for (int i = exsitingPoliceMan.Count - 1; i >= 0; i--)
+        {
+            Destroy(exsitingPoliceMan[i]);
+            Debug.Log("Destroy : " + i);
+            exsitingPoliceMan.RemoveAt(i);
+        }
+        
     }
     public void GoMainUI()
     {
@@ -146,7 +160,7 @@ public class GameManager : MonoBehaviour
         if (mapPB != null)
         {
             Destroy(mapPB);
-            mapPB = Instantiate(mapBGPrefab[Random.Range(0, 5)]);
+            mapPB = Instantiate(mapBGPrefab[Random.Range(0, 6)]);
         }
         
     }

@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
     public List<Smoker> smokers;
     public List<cigaretteButt> cigaretteButts;
     public List<Obstacle> obstacles;
-    public List<GameObject> exsitingPoliceMan;
     // ScoroeZone scoreZone;
 
     void Start()
@@ -295,5 +294,7 @@ public class Player : MonoBehaviour
         GameManager.instance.UpdateMoneySum();
 
         DataManager.instanceData.curStage += 1;
+        DataManager.instanceData.Save();
+        Debug.Log(DataManager.instanceData.curStage);
     }
 }    

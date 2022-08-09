@@ -56,8 +56,7 @@ public class UIManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float percentageComplete =elapsedTime / Duration;
             float reward = Mathf.Lerp(1f, GameManager.instance.getMoney, (Mathf.SmoothStep(0,1,percentageComplete)));
-            clearRewardTMP.text = reward.ToString("000");
-            Debug.Log("SmoothStep");
+            clearRewardTMP.text = reward.ToString("000");            
         }
     }
     // 스테이지 갱신
